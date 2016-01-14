@@ -22,7 +22,7 @@ Solution:
 
 // Your code here.
 function range(first, last, size) {
-  if (size == null) 
+  if (arguments.length == 2) 
     size = 1;
   var array = [];
 
