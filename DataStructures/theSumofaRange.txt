@@ -20,3 +20,34 @@ It might also be worthwhile to use a different default step, namely, -1, when th
 
 Solution:
 
+// Your code here.
+function range(first, last, size) {
+  if (size == null) 
+    size = 1;
+  var array = [];
+
+  if (size > 0) {
+    for (var i = first; i <= last; i += size)
+      array.push(i);
+  } else {
+    for (var i = first; i >= last; i += size)
+      array.push(i);
+  }
+  return array;
+}
+
+function sum(array){
+  var sum = 0;
+	for (var element in array){
+    	sum = array[element] + sum;
+    }
+  return sum;
+}
+
+
+console.log(range(1, 10));
+// → [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+console.log(range(5, 2, -1));
+// → [5, 4, 3, 2]
+console.log(sum(range(1, 10)));
+// → 55
