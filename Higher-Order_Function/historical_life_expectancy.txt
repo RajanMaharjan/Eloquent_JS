@@ -1,0 +1,44 @@
+When we looked up all the people in our data set that lived more than 90 years, only the latest generation in the data came out. Let’s take a closer look at that phenomenon.
+
+Compute and output the average age of the people in the ancestry data set per century. A person is assigned to a century by taking their year of death, dividing it by 100, and rounding it up, as in Math.ceil(person.died / 100).
+
+Hints:
+he essence of this example lies in grouping the elements of a collection by some aspect of theirs—splitting the array of ancestors into smaller arrays with the ancestors for each century.
+
+During the grouping process, keep an object that associates century names (numbers) with arrays of either person objects or ages. Since we do not know in advance what categories we will find, we’ll have to create them on the fly. For each person, after computing their century, we test whether that century was already known. If not, add an array for it. Then add the person (or age) to the array for the proper century.
+
+Finally, a for/in loop can be used to print the average ages for the individual centuries.
+function average(array) {
+  function plus(a, b) { return a + b; }
+  return array.reduce(plus) / array.length;
+}
+
+function groupBy(array, groupOf) {
+  var groups = {};
+  array.forEach(function(element) {
+    var groupName = groupOf(element);
+    if (groupName in groups)
+      groups[groupName].push(element);
+    else
+      groups[groupName] = [element];
+  });
+  return groups;
+}
+
+var byCentury = groupBy(ancestry, function(person) {
+  return Math.ceil(person.died / 100);
+});
+
+for (var century in byCentury) {
+  var ages = byCentury[century].map(function(person) {
+    return person.died - person.born;
+  });
+  console.log(century + ": " + average(ages));
+}
+
+// → 16: 43.5
+//   17: 51.2
+//   18: 52.8
+//   19: 54.8
+//   20: 84.7
+//   21: 94
